@@ -2,13 +2,17 @@
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.26.
 
+**Demo**: http://wcstate.surge.sh (if stuck on loading, that means the device is currently offline)
+
 ## Photon Firmware 
 
 Particle Photon firmware is available here: https://github.com/avatsaev/WcState_PhotonFirmware
 
 ## Setup Particle.io authentification
 
-Enter your particle.io device id, email and password in ```src/environments/environment.prod.ts``` and ```src/environments/environment.ts```
+Enter your particle.io device id, and auth token in ```src/environments/environment.prod.ts``` and ```src/environments/environment.ts```
+
+Refer to particle.io docs to get your token: https://docs.particle.io/reference/api/#generate-an-access-token
 
 
 
