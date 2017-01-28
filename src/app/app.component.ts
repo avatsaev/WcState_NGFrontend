@@ -8,9 +8,7 @@ declare var Particle:any;
   styleUrls: ['./app.component.sass']
 })
 
-
 export class AppComponent implements OnInit{
-  title = 'app works!';
 
   particle = new Particle();
 
@@ -33,8 +31,9 @@ export class AppComponent implements OnInit{
         auth: this.accessToken
       }).then((data)  => {
 
-        if (data.body.result == 0 ) this.wcState = 'free'
+        if (data.body.result == 0 ) this.wcState = 'free';
         else this.wcState = 'occupied'
+
       }, function(err) {
         console.log('An error occurred while getting attrs:', err);
       });
@@ -44,11 +43,12 @@ export class AppComponent implements OnInit{
         name: 'light_state_changed',
         auth: this.accessToken
       }).then( (stream) => {
+
         stream.on('event', (data) => {
-          console.log(data.data);
           if(data.data == "0") this.wcState = 'free';
           else this.wcState = 'occupied';
         });
+
       });
 
     });

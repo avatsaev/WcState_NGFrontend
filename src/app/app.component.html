@@ -1,5 +1,13 @@
 <div [ngClass]="wcState"  class="card">
 
-  <span class="state-label"> {{wcState}} </span>
+  <span class="state-label">
+
+    <i *ngIf="wcState == 'occupied'" class="fa fa-times" aria-hidden="true"></i>
+    <i *ngIf="wcState == 'free'"  class="fa fa-check" aria-hidden="true"></i>
+    <br>
+
+    {{wcState}}
+
+  </span>
 
 </div>
