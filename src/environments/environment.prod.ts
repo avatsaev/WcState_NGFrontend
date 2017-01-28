@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   particle_auth: {
     email: '',
-    password: ''
+    password: '',
+    device_id: ''
   }
 };

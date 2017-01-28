@@ -18,15 +18,18 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
 
-    this.particle.login({username: environment.particle_auth.email, password: environment.particle_auth.password}).then(
-        (data) => {
-          console.debug("DATA", data);
-          this.accessToken = data.body.access_token;
-        }
+    this.particle.login({
+      username: environment.particle_auth.email,
+      password: environment.particle_auth.password
+    }).then(
+        (data) => this.accessToken = data.body.access_token
     ).then(() => {
 
+      //we are successfully autheticated
+
+      //get initial state
       this.particle.getVariable({
-        deviceId: '3b003f000247343339373536',
+        deviceId: environment.particle_auth.device_id,
         name: 'light_state',
         auth: this.accessToken
       }).then((data)  => {
@@ -38,8 +41,10 @@ export class AppComponent implements OnInit{
         console.log('An error occurred while getting attrs:', err);
       });
 
+
+      //listen for state changes
       this.particle.getEventStream({
-        deviceId: '3b003f000247343339373536',
+        deviceId: environment.particle_auth.device_id,
         name: 'light_state_changed',
         auth: this.accessToken
       }).then( (stream) => {
@@ -52,9 +57,6 @@ export class AppComponent implements OnInit{
       });
 
     });
-
-
-
 
 
   }
