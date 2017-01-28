@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
 
   particle = new Particle();
 
-  wcState = 'occupied';
+  wcState = 'loading';
 
   accessToken = '';
 
