@@ -14,52 +14,37 @@ export class AppComponent implements OnInit{
 
   wcState = 'loading';
 
-  accessToken = '';
-
   ngOnInit(){
 
-    this.particle.login({
-      username: environment.particle_auth.email,
-      password: environment.particle_auth.password
-    }).then(
-        (data) => this.accessToken = data.body.access_token
-    ).then(() => {
+    //get initial state
+    this.particle.getVariable({
+      deviceId: environment.particle_auth.device_id,
+      name: 'light_state',
+      auth: environment.particle_auth.token
+    }).then((data)  => {
 
-      //we are successfully autheticated
+      if (data.body.result == 0 ) this.wcState = 'free';
+      else this.wcState = 'occupied'
 
-      //get initial state
-      this.particle.getVariable({
-        deviceId: environment.particle_auth.device_id,
-        name: 'light_state',
-        auth: this.accessToken
-      }).then((data)  => {
-
-        if (data.body.result == 0 ) this.wcState = 'free';
-        else this.wcState = 'occupied'
-
-      }, function(err) {
-        console.log('An error occurred while getting attrs:', err);
-      });
+    }, function(err) {
+      console.log('An error occurred while getting attrs:', err);
+    });
 
 
-      //listen for state changes
-      this.particle.getEventStream({
-        deviceId: environment.particle_auth.device_id,
-        name: 'light_state_changed',
-        auth: this.accessToken
-      }).then( (stream) => {
+    //listen for state changes
+    this.particle.getEventStream({
+      deviceId: environment.particle_auth.device_id,
+      name: 'light_state_changed',
+      auth: environment.particle_auth.token
+    }).then( (stream) => {
 
-        stream.on('event', (data) => {
-          if(data.data == "0") this.wcState = 'free';
-          else this.wcState = 'occupied';
-        });
-
+      stream.on('event', (data) => {
+        if(data.data == "0") this.wcState = 'free';
+        else this.wcState = 'occupied';
       });
 
     });
 
-
   }
-
 
 }
