@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   particle_auth: {
-    email: 'azero79+particleio@gmail.com',
-    password: 'Azrwnd79'
+    email: '',
+    password: ''
   }
 };
